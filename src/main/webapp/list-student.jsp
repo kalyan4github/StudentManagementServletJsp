@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@page import="com.techdenovo.japps.model.Student"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +24,7 @@
                 <th scope="col">College</th>
               </tr>
             </thead>
+           <%-- using c:out --%>
             <tbody>               
                 <c:forEach var="student" items="${Students}">
                      <tr>                        
@@ -29,9 +33,29 @@
                         <td><c:out value="${student.getCollegeName()}"/></td>
                     </tr> 
                 </c:forEach>
-                          
             </tbody>
           </table>
+            <h1>Displaying Student List</h1>
+            <table border ="1" width="500" align="center">
+               <tr bgcolor="00FF7F">
+                <th><b>Student Id</b></th>
+                <th><b>Student Name</b></th>
+                <th><b>College Name</b></th>
+              </tr>
+              <%-- Fetching the attributes of the request object
+                   which was previously set by the servlet
+                    "StudentServlet.java"
+              --%>
+              <%ArrayList<Student> std =
+                  (ArrayList<Student>)request.getAttribute("Students");
+              for(Student student:std){%>
+                  <tr>
+                      <td><%=student.getId()%></td>
+                      <td><%=student.getName()%></td>
+                      <td><%=student.getCollegeName()%></td>
+                  </tr>
+                  <%}%>
+              </table>
     </div>
 </body>
 </html>
